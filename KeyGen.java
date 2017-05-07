@@ -1,11 +1,15 @@
+/*
+Todo List:
+Just need the random prime number e between 1 and phi(n) -> initialize on line 32
+After this is done, the rest of the initializing values can be uncommented (Lines 33, 34, and 35)
+ */
+
 package rsa;
 
 import java.math.BigInteger;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Random;
-
-/* ToDo
-check that p != q
- */
 
 // Write a program KeyGen.java to implement the key generation part of the RSA system.
 public class KeyGen {
@@ -15,9 +19,9 @@ public class KeyGen {
     private BigInteger n; // n = p * q
     private BigInteger phi; // phi(n) = (p - 1) * (q - 1)
     private BigInteger randomPrime; // 1 < e < phi and gcd(e, phi) = 1
-    private BigInteger inverse;
-    private BigInteger privateKey;
-    private BigInteger publicKey;
+    private BigInteger inverse; // inverse = e^-1 mod phi(n)
+    private Map<String, BigInteger> publicKey = new HashMap<>(); // publicKey = (randomPrime, inverse)
+    private BigInteger privateKey; // privateKey = n
     private Random rand;
 
     public KeyGen(BigInteger p, BigInteger q) { // p and q must be primes
@@ -25,7 +29,11 @@ public class KeyGen {
         this.q = q;
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
-
+        // random prime initialize goes here
+        //this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
+        //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
+        //this.publicKey.put("d", this.inverse);
+        this.privateKey = this.n; // set privateKey = n
     }
 
     // returns totient of a prime number otherwise returns -1 meaning p isn't prime
@@ -50,6 +58,8 @@ public class KeyGen {
     public BigInteger phi() {
         return this.phi;
     }
+
+
 
 
     // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
