@@ -1,4 +1,4 @@
-package rsa;
+package src.rsa;
 
 public class DigitalSignature {
 

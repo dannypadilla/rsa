@@ -1,5 +1,6 @@
-package rsa;
+package src.rsa;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -48,9 +49,23 @@ public class KeyGen {
     }
 
     public BigInteger phi() {
-        return this.phi;
+        BigInteger holder;
+        BigInteger temp = this.p.subtract(BigInteger.ONE);
+
+        BigInteger temp2 = this.q.subtract(BigInteger.ONE);
+        holder = temp.multiply(temp2);
+
+        return holder;
     }
 
+    public BigInteger randNum(BigInteger phi){
+        //BigInteger temp = BigInteger.valueOf(String.valueOf(Math.random() * phi) + 1);
+        //BigInteger temp = BigInteger.valueOf(Math.random() * phi.doubleValue());
+        BigDecimal value = new BigDecimal(Math.random());
+        BigInteger temp = this.phi.multiply(value.toBigInteger());
+
+
+    }
 
     // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
 
