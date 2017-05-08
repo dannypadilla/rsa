@@ -70,8 +70,17 @@ public class KeyGen {
     public BigInteger randNum(BigInteger phi){
         //BigInteger temp = BigInteger.valueOf(String.valueOf(Math.random() * phi) + 1);
         //BigInteger temp = BigInteger.valueOf(Math.random() * phi.doubleValue());
+
+        /*BigDecimal value = new BigDecimal((Math.random() * phi) + 1);*/
         BigDecimal value = new BigDecimal(Math.random());
         BigInteger temp = this.phi.multiply(value.toBigInteger()).add(BigInteger.ONE);
+        (BigInteger)((Math.random().) + 1);
+        
+        System.out.println("value to big int mult phi");
+        System.out.println(value.toBigInteger().multiply(phi));
+        System.out.println("value " + value);
+        System.out.println("phi" + phi);
+        System.out.println("temp " + temp);
 
         return temp;
     }
