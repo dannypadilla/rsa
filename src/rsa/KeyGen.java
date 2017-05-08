@@ -71,9 +71,9 @@ public class KeyGen {
         //BigInteger temp = BigInteger.valueOf(String.valueOf(Math.random() * phi) + 1);
         //BigInteger temp = BigInteger.valueOf(Math.random() * phi.doubleValue());
         BigDecimal value = new BigDecimal(Math.random());
-        BigInteger temp = this.phi.multiply(value.toBigInteger());
+        BigInteger temp = this.phi.multiply(value.toBigInteger()).add(BigInteger.ONE);
 
-
+        return temp;
     }
 
 
