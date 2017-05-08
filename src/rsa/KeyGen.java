@@ -72,10 +72,16 @@ public class KeyGen {
         //BigInteger temp = BigInteger.valueOf(Math.random() * phi.doubleValue());
 
         /*BigDecimal value = new BigDecimal((Math.random() * phi) + 1);*/
+//        BigInteger range = phi.subtract(BigInteger.ONE).add(BigInteger.ONE);
+        //just use isprobbably to generate, abandon the math.rand.
         BigDecimal value = new BigDecimal(Math.random());
+
+        System.out.println("phi double" + phi.doubleValue());
+        //value.multiply(range);
+
         BigInteger temp = this.phi.multiply(value.toBigInteger()).add(BigInteger.ONE);
-        (BigInteger)((Math.random().) + 1);
-        
+
+
         System.out.println("value to big int mult phi");
         System.out.println(value.toBigInteger().multiply(phi));
         System.out.println("value " + value);
