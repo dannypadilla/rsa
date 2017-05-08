@@ -1,14 +1,11 @@
-<<<<<<< HEAD:src/rsa/KeyGen.java
+
 package src.rsa;
-=======
+
 /*
 Todo List:
 Just need the random prime number e between 1 and phi(n) -> initialize on line 32
 After this is done, the rest of the initializing values can be uncommented (Lines 33, 34, and 35)
  */
-
-package rsa;
->>>>>>> 0266e949ba0a5c1cde53ab99061297554a03a8db:KeyGen.java
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
