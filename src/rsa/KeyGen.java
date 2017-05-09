@@ -68,28 +68,17 @@ public class KeyGen {
     }
 
     public BigInteger randNum(BigInteger phi){
-        //BigInteger temp = BigInteger.valueOf(String.valueOf(Math.random() * phi) + 1);
-        //BigInteger temp = BigInteger.valueOf(Math.random() * phi.doubleValue());
-
-        /*BigDecimal value = new BigDecimal((Math.random() * phi) + 1);*/
-//        BigInteger range = phi.subtract(BigInteger.ONE).add(BigInteger.ONE);
+        Random rand = new Random();
         //just use isprobbably to generate, abandon the math.rand.
+        BigInteger value;
 
-
-        //BigInteger value = BigInteger.ONE;
-//        BigInteger value = BigInteger.probablePrime(512,rand);
-        //BigInteger value = new BigInteger(512, 100, randomPrime);
-
-
-        System.out.println(BigInteger.probablePrime(512, rand));
-        /*if((value.compareTo(phi) == -1) && value.gcd(phi).compareTo(BigInteger.ONE) == 0 && value.compareTo(BigInteger.ONE) == 1 && value.isProbablePrime(100)) {
-            System.out.println(value);
+        do{
+            value = BigInteger.probablePrime(1024,rand);
         }
-        else{
-            System.out.println(BigInteger.ONE);
-        }*/
+        while ((value.compareTo(phi) != -1) && value.gcd(phi).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100))
 
-//        return value;
+        return value;
+
     }
 
 
@@ -114,7 +103,7 @@ you MUST output and input these keys to and from the files using a Java ObjectOu
 
 }
 
-    /*
+ /*
                                _
                             _ooOoo_
                            o8888888o

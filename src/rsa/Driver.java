@@ -29,8 +29,10 @@ public class Driver {
             System.out.println(rsa.randNum(rsa.phi()));
         }*/
 
-        BigInteger temp = rsa.randNum(rsa.phi());
-        System.out.println("temp" + temp);
+//        BigInteger temp = rsa.randNum(rsa.phi());
+//        System.out.println("temp" + temp);
+        rsa.randNum(rsa.phi());
+
         //System.out.println(rsa.randNum(rsa.phi()));
         //System.out.println(num2.modInverse(new BigInteger("17") )); // multiplicative inverse of 8 is 15 mod 17. (8^-1 mod 17 = 15)
 
