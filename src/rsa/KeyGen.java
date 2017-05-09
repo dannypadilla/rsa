@@ -34,7 +34,9 @@ public class KeyGen {
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
         // random prime initialize goes here
-        //this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
+        this.randomPrime = randNum(this.phi);
+        this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
+
         //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
         //this.publicKey.put("d", this.inverse);
         this.privateKey = this.n; // set privateKey = n
@@ -50,7 +52,16 @@ public class KeyGen {
         this.phi = this.totient(this.totient(this.p), this.totient(this.q));
         this.privateKey = this.n;
     }
+    public void getAll(){
+        System.out.println("p " + this.p);
+        System.out.println("q " + this.q);
+        System.out.println("n " + this.n);
+        System.out.println("phi " + this.phi);
+        System.out.println("random prime " + this.randomPrime);
+        System.out.println("inverse " + this.inverse);
 
+
+    }
     public BigInteger getP(){
         return this.p;
     }
