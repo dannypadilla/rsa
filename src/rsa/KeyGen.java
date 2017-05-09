@@ -74,24 +74,22 @@ public class KeyGen {
         /*BigDecimal value = new BigDecimal((Math.random() * phi) + 1);*/
 //        BigInteger range = phi.subtract(BigInteger.ONE).add(BigInteger.ONE);
         //just use isprobbably to generate, abandon the math.rand.
-        BigDecimal value = new BigDecimal(Math.random());
-
-        System.out.println("phi double" + phi.doubleValue());
-        //value.multiply(range);
-
-        BigInteger temp = this.phi.multiply(value.toBigInteger()).add(BigInteger.ONE);
 
 
-        System.out.println("value to big int mult phi");
-        System.out.println(value.toBigInteger().multiply(phi));
-        System.out.println("value " + value);
-        System.out.println("phi" + phi);
-        System.out.println("temp " + temp);
-
-        return temp;
+        //BigInteger value = BigInteger.ONE;
+//        BigInteger value = BigInteger.probablePrime(512,rand);
+        //BigInteger value = new BigInteger(512, 100, randomPrime);
 
 
+        System.out.println(BigInteger.probablePrime(512, rand));
+        /*if((value.compareTo(phi) == -1) && value.gcd(phi).compareTo(BigInteger.ONE) == 0 && value.compareTo(BigInteger.ONE) == 1 && value.isProbablePrime(100)) {
+            System.out.println(value);
+        }
+        else{
+            System.out.println(BigInteger.ONE);
+        }*/
 
+//        return value;
     }
 
 
@@ -116,3 +114,26 @@ you MUST output and input these keys to and from the files using a Java ObjectOu
 
 }
 
+    /*
+                               _
+                            _ooOoo_
+                           o8888888o
+                           88" . "88
+                           (| -_- |)
+                           O\  =  /O
+                        ____/`---'\____
+                      .'  \\|     |//  `.
+                     /  \\|||  :  |||//  \
+                    /  _||||| -:- |||||_  \
+                    |   | \\\  -  /'| |   |
+                    | \_|  `\`---'//  |_/ |
+                    \  .-\__ `-. -'__/-.  /
+                  ___`. .'  /--.--\  `. .'___
+               ."" '<  `.___\_<|>_/___.' _> \"".
+              | | :  `- \`. ;\_ _/; .'/ /  .' ; |
+              \  \ `-.   \_\_`. _.'_/_/  -' _.' /
+    ===========`-.`___`-.__\ \___/ /__.-'___'.-'===========
+                            `=---='
+
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  */
