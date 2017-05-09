@@ -71,12 +71,12 @@ public class KeyGen {
         Random rand = new Random();
         //just use isprobbably to generate, abandon the math.rand.
         BigInteger value;
-
+        int number = (int) ((Math.random() * 1024 - 2 + 1) + 2);
         do{
-            value = BigInteger.probablePrime(1024,rand);
+            value = BigInteger.probablePrime(number,rand);
         }
-        while ((value.compareTo(phi) != -1) && value.gcd(phi).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100))
-
+        while ((value.compareTo(phi) != -1) && value.gcd(phi).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100));
+        System.out.println(value);
         return value;
 
     }
