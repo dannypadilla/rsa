@@ -9,6 +9,10 @@ After this is done, the rest of the initializing values can be uncommented (Line
 
 import sun.jvm.hotspot.memory.DefNewGeneration;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
@@ -118,6 +122,43 @@ public class KeyGen {
 
     // In BigInteger the method used for this purpose is
      // public BigInteger modInverse(BigInteger m)
+
+    public void pubkey(){
+        // e and n should go in here
+
+        try {
+            FileOutputStream fos = new FileOutputStream("pubkey.rsa");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(this.randomPrime);
+            oos.writeObject(this.n);
+            oos.close();
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("pubkey.rsa"));
+            //System.out.println("works" + (BigInteger) ois.readObject());
+            System.out.println("random Prime " + ois.readObject());
+            System.out.println("n " + ois.readObject());
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    //d and n inside privkey.rsa
+    public void privkey(){
+        try{
+            FileOutputStream fos = new FileOutputStream("privkey.rsa");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(this.inverse);
+            oos.writeObject(this.n);
+            oos.close();
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("privkey.rsa"));
+            //System.out.println("works" + (BigInteger) ois.readObject());
+            System.out.println("inverse " + ois.readObject());
+            System.out.println("n " + ois.readObject());
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
 /*
 When you execute this program, it should generate new public and private keys for your RSA cryptosystem,
