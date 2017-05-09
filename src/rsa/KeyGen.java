@@ -38,6 +38,23 @@ public class KeyGen {
         this.privateKey = this.n; // set privateKey = n
     }
 
+    public KeyGen(){
+        do {
+            this.p = BigInteger.probablePrime(512, rand);
+            this.q = BigInteger.probablePrime(512, rand);
+        }while(!this.p.isProbablePrime(100) && !this.q.isProbablePrime(100));
+        this.n = this.p.multiply(this.q);
+        this.phi = this.totient(this.totient(this.p), this.totient(this.q));
+        this.privateKey = this.n;
+    }
+
+    public BigInteger getP(){
+        return this.p;
+    }
+
+    public BigInteger getQ(){
+        return this.q;
+    }
     // returns totient of a prime number otherwise returns -1 meaning p isn't prime
     public BigInteger totient(BigInteger prime) {
         if(prime.isProbablePrime(100) ) {
