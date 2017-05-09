@@ -23,15 +23,9 @@ public class Driver {
 
         System.out.println("phi(n) = " + rsa.phi() ); // prints out the phi function (totient) of n
 
+        System.out.println("random");
+        System.out.println(rsa.randNum(rsa.phi()));
 
-        System.out.println("rsa");
-        /*for(int i = 0; i < 5; i++){
-            System.out.println(rsa.randNum(rsa.phi()));
-        }*/
-
-//        BigInteger temp = rsa.randNum(rsa.phi());
-//        System.out.println("temp" + temp);
-        rsa.randNum(rsa.phi());
 
         //System.out.println(rsa.randNum(rsa.phi()));
         //System.out.println(num2.modInverse(new BigInteger("17") )); // multiplicative inverse of 8 is 15 mod 17. (8^-1 mod 17 = 15)

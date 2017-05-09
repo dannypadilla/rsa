@@ -24,7 +24,7 @@ public class KeyGen {
     private BigInteger inverse; // inverse = e^-1 mod phi(n)
     private Map<String, BigInteger> publicKey = new HashMap<>(); // publicKey = (randomPrime, inverse)
     private BigInteger privateKey; // privateKey = n
-    private Random rand;
+    private Random rand = new Random();
 
     public KeyGen(BigInteger p, BigInteger q) { // p and q must be primes
         this.p = p;
@@ -67,6 +67,7 @@ public class KeyGen {
         return holder;
     }
 
+    // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
     public BigInteger randNum(BigInteger phi){
         Random rand = new Random();
         //just use isprobbably to generate, abandon the math.rand.
@@ -76,14 +77,12 @@ public class KeyGen {
             value = BigInteger.probablePrime(number,rand);
         }
         while ((value.compareTo(phi) != -1) && value.gcd(phi).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100));
-        System.out.println(value);
         return value;
-
     }
 
 
 
-    // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
+
 
 
     // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
