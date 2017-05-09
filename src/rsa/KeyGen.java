@@ -112,14 +112,9 @@ public class KeyGen {
         return value;
     }
 
-    // Calculate  d = e-1 mod ø(n) :
-    public BigInteger getD(BigInteger e, BigInteger phi){
-        BigInteger D = e.subtract(BigInteger.ONE).mod(phi);
-        return D;
-    }
 
     // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
-
+// Calculate  d = e^-1 mod ø(n) :
 
     // In BigInteger the method used for this purpose is
      // public BigInteger modInverse(BigInteger m)
