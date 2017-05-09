@@ -7,6 +7,8 @@ Just need the random prime number e between 1 and phi(n) -> initialize on line 3
 After this is done, the rest of the initializing values can be uncommented (Lines 33, 34, and 35)
  */
 
+import sun.jvm.hotspot.memory.DefNewGeneration;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
@@ -42,7 +44,8 @@ public class KeyGen {
         do {
             this.p = BigInteger.probablePrime(512, rand);
             this.q = BigInteger.probablePrime(512, rand);
-        }while(!this.p.isProbablePrime(100) && !this.q.isProbablePrime(100));
+        }
+        while(!this.p.isProbablePrime(100) && !this.q.isProbablePrime(100));
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q));
         this.privateKey = this.n;
@@ -58,9 +61,10 @@ public class KeyGen {
     // returns totient of a prime number otherwise returns -1 meaning p isn't prime
     public BigInteger totient(BigInteger prime) {
         if(prime.isProbablePrime(100) ) {
-            return prime.subtract(new BigInteger("1") );
+            return prime.subtract(BigInteger.ONE);
         } else {
             return new BigInteger("-1");
+
         }
     }
 
@@ -97,13 +101,19 @@ public class KeyGen {
         return value;
     }
 
+    // Calculate  d = e-1 mod ø(n) :
+    public BigInteger getD(BigInteger e, BigInteger phi){
+        BigInteger D = e.subtract(BigInteger.ONE).mod(phi);
+        return D;
+    }
+
 
 
 
 
 
     // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
-     // Calculate  d = e-1 mod ø(n) :
+
 
     // In BigInteger the method used for this purpose is
      // public BigInteger modInverse(BigInteger m)
