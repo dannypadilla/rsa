@@ -107,11 +107,6 @@ public class KeyGen {
         return D;
     }
 
-
-
-
-
-
     // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
 
 
