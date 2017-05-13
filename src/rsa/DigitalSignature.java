@@ -16,7 +16,7 @@ public class DigitalSignature{
             MessageDigest MD = MessageDigest.getInstance("MD5");
             try {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt"));
-                
+
             }
             catch(Exception ex){
                 ex.printStackTrace();
