@@ -29,41 +29,44 @@ public class KeyGen {
         this.q = q;
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
-        // random prime initialize goes here
-        //this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
-        //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
-        //this.publicKey.put("d", this.inverse);
+        this.randomPrime = this.randNum(this.phi); // random prime initialize goes here
+        this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
+        this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
+        this.publicKey.put("d", this.inverse);
         this.privateKey = this.n; // set privateKey = n
     }
 
     // returns totient of a prime number otherwise returns -1 meaning p isn't prime
     public BigInteger totient(BigInteger prime) {
         if(prime.isProbablePrime(100) ) {
-            return prime.subtract(new BigInteger("1") );
+            return prime.subtract(BigInteger.ONE);
         } else {
             return new BigInteger("-1");
         }
     }
 
-    // returns totient of two primes otherwise returns -2 meaning one of the nums aren't relatively prime
+    // returns totient of TWO primes otherwise returns -2 meaning one of the nums aren't relatively prime
     public BigInteger totient(BigInteger totientP, BigInteger totientQ) {
-        if(p.isProbablePrime(100) && q.isProbablePrime(100) ) {
+        if(totientP.isProbablePrime(100) && totientQ.isProbablePrime(100) ) {
             return totientP.multiply(totientQ);
         } else {
             return new BigInteger("-2"); // need to do prime factorization
         }
-
     }
 
-    public BigInteger phi() {
+    public BigInteger getPhi() {
         return this.phi;
     }
 
-
-
-
     // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
-
+    public BigInteger randNum(BigInteger num) {
+        BigInteger value;
+        int number = (int)( (Math.random() * 1024 - 2 + 1) + 2);
+        do {
+            value = BigInteger.probablePrime(number, rand);
+        } while ( (value.compareTo(num) != -1) && value.gcd(num).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100) );
+        return value;
+    }
 
     // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
      // Calculate  d = e-1 mod ø(n) :
@@ -71,18 +74,9 @@ public class KeyGen {
     // In BigInteger the method used for this purpose is
      // public BigInteger modInverse(BigInteger m)
 
-/*
-When you execute this program, it should generate new public and private keys for your RSA cryptosystem,
-where p, q and e as defined above are all 512-bit integers and n  should be ~1024 bits. Your program should output all
-three values e, d and n to the console as it generates them.  The values e and n should also be saved to a file called
-"pubkey.rsa" and the values d and n should be saved to a file "privkey.rsa".  To allow for nice access of these files,
-you MUST output and input these keys to and from the files using a Java ObjectOutputStream and ObjectInputStream.
-     */
-
-
 }
 
-    /*
+/*
                                _
                             _ooOoo_
                            o8888888o
@@ -104,4 +98,4 @@ you MUST output and input these keys to and from the files using a Java ObjectOu
                             `=---='
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  */
+*/

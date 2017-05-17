@@ -17,9 +17,11 @@ public class Driver {
         //System.out.println(p.isProbablePrime(100) ); // checks to see if p is prime
         //System.out.println(q.isProbablePrime(100) ); // checks to see if q is prime
 
-        KeyGen rsa = new KeyGen(p, q); // create KeyGen from primes p and q
+        //KeyGen rsa = new KeyGen(p, q); // create KeyGen from primes p and q
 
-        System.out.println("phi(n) = " + rsa.phi() ); // prints out the phi function (totient) of n
+        MD5
+
+        System.out.println("phi(n) = " + rsa.getPhi() ); // prints out the phi function (totient) of n
 
         //System.out.println(num2.modInverse(new BigInteger("17") )); // multiplicative inverse of 8 is 15 mod 17. (8^-1 mod 17 = 15)
 
