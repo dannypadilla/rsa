@@ -8,7 +8,7 @@ import java.util.*;
 public class Driver {
 
     public static void main(String[] args) {
-        Random rand = new Random(); // create a random object; passed to random prime creation function
+        /*Random rand = new Random(); // create a random object; passed to random prime creation function
 
         BigInteger p = BigInteger.probablePrime(512, rand); // create a prime p
         BigInteger q = BigInteger.probablePrime(512, rand); // create a prime q
@@ -37,7 +37,13 @@ public class Driver {
         System.out.println("get all");
         rsa.getAll();
         rsa.pubkey();
-        rsa.privkey();
+        rsa.privkey();*/
+
+
+        DigitalSignature ds = new DigitalSignature();
+
+
+
 
     }
 }

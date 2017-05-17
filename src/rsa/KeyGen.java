@@ -155,6 +155,8 @@ public class KeyGen {
             //System.out.println("works" + (BigInteger) ois.readObject());
             System.out.println("inverse " + ois.readObject());
             System.out.println("n " + ois.readObject());
+
+
         }catch(Exception ex){
             ex.printStackTrace();
         }
