@@ -22,36 +22,25 @@ public class DigitalSignature{
                 for(int i = 0; i < 5; i++){
                     strings[i] = br.readLine();
                 }
-
-                //array of messageDigests and set them all to MD5
-                MessageDigest [] md = new MessageDigest[5];
+                String temp = "";
                 for(int i = 0; i < 5; i++){
-                    md[i] = MessageDigest.getInstance("MD5");
+                    temp = temp.concat(strings[i]);
                 }
+
+                System.out.println(temp);
+                //array of messageDigests and set them all to MD5
+
+                MessageDigest md = MessageDigest.getInstance("MD5");
 
                 //byte of strings
-                byte[][] byteArray = new byte[][];
-                for(int i = 0; i < 5; i++){
-                    byteArray[i] = strings[i].getBytes();
-                }
+                byte[] byteArray = temp.getBytes();
 
                 //update
-                for(int i = 0; i < 5; i++){
-                    md[i].update(byteArray[i]);
-                }
+                md.update(byteArray);
 
-                byte[][] digest = new byte[][];
-                for(int i = 0; i < 5; i++){
-                    digest[i] = md[i].digest();
-                }
+                //digest
+                byte[] digest = md.digest();
 
-
-
-
-                //it works
-                for(int i = 0; i < 5; i++){
-                    System.out.println(strings[i]);
-                }
             }
             catch(Exception ex){
                 ex.printStackTrace();
