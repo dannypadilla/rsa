@@ -20,16 +20,20 @@ public class DigitalSignature{
 
                 FileReader fileReader = new FileReader("test.txt");
                 BufferedReader br = new BufferedReader(fileReader);
+                /*System.out.println(br.readLine());
                 System.out.println(br.readLine());
                 System.out.println(br.readLine());
                 System.out.println(br.readLine());
-                System.out.println(br.readLine());
-                System.out.println(br.readLine());
-                /*while(br.readLine()!=null){
-                    System.out.println(br.readLine());
-                }*/
+                System.out.println(br.readLine());*/
+                String [] strings = new String[5];
 
 
+                for(int i = 0; i < 5; i++){
+                    strings[i] = br.readLine();
+                }
+                for(int i = 0; i < 5; i++){
+                    System.out.println(strings[i]);
+                }
             }
             catch(Exception ex){
                 ex.printStackTrace();
