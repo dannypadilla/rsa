@@ -109,11 +109,38 @@ public class DigitalSignature{
     public void receiver(){
         try{
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt.signed"));
-            BigInteger bi = (BigInteger)ois.readObject();
+            BigInteger value = (BigInteger)ois.readObject();
+
+            ObjectInputStream encrypt = new ObjectInputStream(new FileInputStream("pubkey.rsa"));
+            BigInteger ee = (BigInteger)encrypt.readObject();
+            BigInteger nn = (BigInteger)encrypt.readObject();
+            BigInteger answer = value.modPow(ee,nn);
+            byte[] temp = answer.toByteArray();
+
+            String holder = "";
+            for(int i = 0; i < 5; i++){
+                holder = holder.concat(ois.readObject().toString());
+            }
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] b = holder.getBytes();
+
+            md.update(b);
+
+            byte[] digest = md.digest();
+
+            
+
+            if(MessageDigest.isEqual(digest,temp)){
+                System.out.println("equal");
+            }
+            else{
+                System.out.println("not equal");
+            }
+
+
         }catch(Exception x){
             x.printStackTrace();
         }
-
     }
 
     

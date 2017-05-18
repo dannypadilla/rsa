@@ -37,19 +37,16 @@ public class KeyGen {
         this.q = q;
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
-<<<<<<< HEAD:src/rsa/KeyGen.java
         // random prime initialize goes here
         this.randomPrime = randNum(this.phi);
         this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
 
         //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
         //this.publicKey.put("d", this.inverse);
-=======
         this.randomPrime = this.randNum(this.phi); // random prime initialize goes here
         this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
         this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
         this.publicKey.put("d", this.inverse);
->>>>>>> 8eb24336b16832dd162900c726b338efba9e231f:KeyGen.java
         this.privateKey = this.n; // set privateKey = n
     }
 
@@ -95,7 +92,7 @@ public class KeyGen {
         return totientP.multiply(totientQ);
     }
 
-<<<<<<< HEAD:src/rsa/KeyGen.java
+
     public BigInteger phi() {
         BigInteger holder;
         BigInteger temp = this.p.subtract(BigInteger.ONE);
