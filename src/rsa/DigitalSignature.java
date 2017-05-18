@@ -98,14 +98,15 @@ public class DigitalSignature{
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
-
-
-
+            iis.close();
         }
         catch(Exception x){
             x.printStackTrace();
         }
+
     }
+
+    
 
 
 }
