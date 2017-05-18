@@ -41,7 +41,8 @@ public class Driver {
 
 
         DigitalSignature ds = new DigitalSignature();
-        ds.signMag(ds.getBytes());
+        ds.setSignMag(ds.getBytes());
+        ds.initialSigning();
 
 
 

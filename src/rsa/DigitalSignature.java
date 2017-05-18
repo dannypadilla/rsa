@@ -8,6 +8,7 @@ public class DigitalSignature{
 
     private byte [] digest;
     private BigInteger sigMag;
+    private BigInteger d, n;
 
 
 
@@ -62,11 +63,44 @@ public class DigitalSignature{
         return this.digest;
     }
 
-    public void getPrivKeys(){
+    public void initialSigning(){
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("privkey.rsa"));
 
+            this.d = (BigInteger)ois.readObject();
+            this.n = (BigInteger)ois.readObject();
+
+            BigInteger answer = sigMag.modPow(d,n);
+
+            System.out.println("answer " + answer);
+            FileReader temp = new FileReader("test.txt");
+            BufferedReader br = new BufferedReader(temp);
+
+            FileOutputStream fos = new FileOutputStream("test.txt.signed");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(answer);
+            for(int i = 0; i < 5; i++) {
+                oos.writeObject(br.readLine());
+            }
+
+            oos.close();
             ois.close();
+            fos.close();
+            temp.close();
+            br.close();
+
+            //pw.close();
+
+            ObjectInputStream iis = new ObjectInputStream(new FileInputStream("test.txt.signed"));
+            System.out.println(iis.readObject());
+            System.out.println(iis.readObject());
+            System.out.println(iis.readObject());
+            System.out.println(iis.readObject());
+            System.out.println(iis.readObject());
+            System.out.println(iis.readObject());
+
+
+
         }
         catch(Exception x){
             x.printStackTrace();

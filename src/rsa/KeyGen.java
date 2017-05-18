@@ -135,8 +135,7 @@ public class KeyGen {
 
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("pubkey.rsa"));
             //System.out.println("works" + (BigInteger) ois.readObject());
-            System.out.println("random Prime " + ois.readObject());
-            System.out.println("n " + ois.readObject());
+            
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -152,10 +151,6 @@ public class KeyGen {
             oos.close();
 
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("privkey.rsa"));
-            System.out.println("inverse " + ois.readObject());
-            System.out.println("n " + ois.readObject());
-
-
         }catch(Exception ex){
             ex.printStackTrace();
         }
