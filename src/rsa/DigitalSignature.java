@@ -106,6 +106,16 @@ public class DigitalSignature{
 
     }
 
+    public void receiver(){
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt.signed"));
+            BigInteger bi = (BigInteger)ois.readObject();
+        }catch(Exception x){
+            x.printStackTrace();
+        }
+
+    }
+
     
 
 
