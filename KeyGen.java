@@ -22,7 +22,7 @@ public class KeyGen {
     private BigInteger inverse; // inverse = e^-1 mod phi(n)
     private Map<String, BigInteger> publicKey = new HashMap<>(); // publicKey = (randomPrime, inverse)
     private BigInteger privateKey; // privateKey = n
-    private Random rand;
+    private Random rand = new Random();
 
     public KeyGen(BigInteger p, BigInteger q) { // p and q must be primes
         this.p = p;
@@ -47,11 +47,7 @@ public class KeyGen {
 
     // returns totient of TWO primes otherwise returns -2 meaning one of the nums aren't relatively prime
     public BigInteger totient(BigInteger totientP, BigInteger totientQ) {
-        if(totientP.isProbablePrime(100) && totientQ.isProbablePrime(100) ) {
-            return totientP.multiply(totientQ);
-        } else {
-            return new BigInteger("-2"); // need to do prime factorization
-        }
+        return totientP.multiply(totientQ);
     }
 
     public BigInteger getPhi() {
@@ -63,16 +59,14 @@ public class KeyGen {
         BigInteger value;
         int number = (int)( (Math.random() * 1024 - 2 + 1) + 2);
         do {
-            value = BigInteger.probablePrime(number, rand);
+            value = BigInteger.probablePrime(number, this.rand);
         } while ( (value.compareTo(num) != -1) && value.gcd(num).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100) );
         return value;
     }
 
-    // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
-     // Calculate  d = e-1 mod ø(n) :
-
-    // In BigInteger the method used for this purpose is
-     // public BigInteger modInverse(BigInteger m)
+    public BigInteger getRand() {
+        return this.randomPrime;
+    }
 
 }
 
