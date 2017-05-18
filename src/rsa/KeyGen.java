@@ -1,5 +1,4 @@
-
-package src.rsa;
+package rsa.src.rsa;
 
 /*
 Todo List:
@@ -28,32 +27,24 @@ public class KeyGen {
     private BigInteger phi; // phi(n) = (p - 1) * (q - 1)
     private BigInteger randomPrime; // 1 < e < phi and gcd(e, phi) = 1
     private BigInteger inverse; // inverse = e^-1 mod phi(n)
-    private Map<String, BigInteger> publicKey = new HashMap<>(); // publicKey = (randomPrime, inverse)
-    private BigInteger privateKey; // privateKey = n
+    private Map<String, BigInteger> publicKey = new HashMap<>(); // publicKey = (randomPrime, n)
+    private BigInteger privateKey; // privateKey = d (inverse)
     private Random rand = new Random();
 
     public KeyGen(BigInteger p, BigInteger q) { // p and q must be primes
         this.p = p;
         this.q = q;
         this.n = this.p.multiply(this.q);
-        this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
-<<<<<<< HEAD:src/rsa/KeyGen.java
-        // random prime initialize goes here
-        this.randomPrime = randNum(this.phi);
+        //this.phi = this.totient(this.totient(this.p), this.totient(this.q) ); // phi(n)
+        this.phi = this.totient(this.p.subtract(BigInteger.ONE), this.q.subtract(BigInteger.ONE) ); // phi(n)
+        this.randomPrime = this.randNum(this.phi); // random prime e (public key)
         this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
-
-        //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
-        //this.publicKey.put("d", this.inverse);
-=======
-        this.randomPrime = this.randNum(this.phi); // random prime initialize goes here
-        this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
-        this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
-        this.publicKey.put("d", this.inverse);
->>>>>>> 8eb24336b16832dd162900c726b338efba9e231f:KeyGen.java
-        this.privateKey = this.n; // set privateKey = n
+        this.publicKey.put("e", this.randomPrime); // set publickey = (e, n)
+        this.publicKey.put("n", this.n); // private key
+        this.privateKey = this.inverse; // set privateKey = d (inverse)
     }
 
-    public KeyGen(){
+    public KeyGen() {
         do {
             this.p = BigInteger.probablePrime(512, rand);
             this.q = BigInteger.probablePrime(512, rand);
@@ -63,47 +54,28 @@ public class KeyGen {
         this.phi = this.totient(this.totient(this.p), this.totient(this.q));
         this.privateKey = this.n;
     }
+
     public void getAll(){
-        System.out.println("p " + this.p);
-        System.out.println("q " + this.q);
-        System.out.println("n " + this.n);
-        System.out.println("phi " + this.phi);
-        System.out.println("random prime " + this.randomPrime);
-        System.out.println("inverse " + this.inverse);
-
-
-    }
-    public BigInteger getP(){
-        return this.p;
+        System.out.println("Prime p: " + this.p);
+        System.out.println("Prime q: " + this.q);
+        System.out.println("n = (p x q): " + this.n);
+        System.out.println("Phi/Totient: " + this.phi);
+        System.out.println("Public Key (e): " + this.randomPrime);
+        System.out.println("Private key (d): " + this.inverse);
     }
 
-    public BigInteger getQ(){
-        return this.q;
-    }
     // returns totient of a prime number otherwise returns -1 meaning p isn't prime
     public BigInteger totient(BigInteger prime) {
         if(prime.isProbablePrime(100) ) {
             return prime.subtract(BigInteger.ONE);
         } else {
             return new BigInteger("-1");
-
         }
     }
 
     // returns totient of TWO primes otherwise returns -2 meaning one of the nums aren't relatively prime
     public BigInteger totient(BigInteger totientP, BigInteger totientQ) {
         return totientP.multiply(totientQ);
-    }
-
-<<<<<<< HEAD:src/rsa/KeyGen.java
-    public BigInteger phi() {
-        BigInteger holder;
-        BigInteger temp = this.p.subtract(BigInteger.ONE);
-
-        BigInteger temp2 = this.q.subtract(BigInteger.ONE);
-        holder = temp.multiply(temp2);
-
-        return holder;
     }
 
     // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
@@ -119,15 +91,7 @@ public class KeyGen {
         return value;
     }
 
-
-    // Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e should be similar in (bit) length to p and q, but does not have to be the same length.
-// Calculate  d = e^-1 mod ø(n) :
-
-    // In BigInteger the method used for this purpose is
-     // public BigInteger modInverse(BigInteger m)
-
-    public void pubkey(){
-        // e and n should go in here
+    public void pubkey() {
 
         try {
             FileOutputStream fos = new FileOutputStream("pubkey.rsa");
@@ -159,41 +123,9 @@ public class KeyGen {
         }
     }
 
-/*
-When you execute this program, it should generate new public and private keys for your RSA cryptosystem,
-where p, q and e as defined above are all 512-bit integers and n  should be ~1024 bits. Your program should output all
-three values e, d and n to the console as it generates them.  The values e and n should also be saved to a file called
-"pubkey.rsa" and the values d and n should be saved to a file "privkey.rsa".  To allow for nice access of these files,
-you MUST output and input these keys to and from the files using a Java ObjectOutputStream and ObjectInputStream.
-     */
-
-
-}
-
- /*
-=======
-    public BigInteger getPhi() {
-        return this.phi;
-    }
-
-    // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
-    public BigInteger randNum(BigInteger num) {
-        BigInteger value;
-        int number = (int)( (Math.random() * 1024 - 2 + 1) + 2);
-        do {
-            value = BigInteger.probablePrime(number, this.rand);
-        } while ( (value.compareTo(num) != -1) && value.gcd(num).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100) );
-        return value;
-    }
-
-    public BigInteger getRand() {
-        return this.randomPrime;
-    }
-
 }
 
 /*
->>>>>>> 8eb24336b16832dd162900c726b338efba9e231f:KeyGen.java
                                _
                             _ooOoo_
                            o8888888o

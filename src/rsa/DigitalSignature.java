@@ -1,4 +1,4 @@
-package src.rsa;
+package rsa.src.rsa;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -10,14 +10,12 @@ public class DigitalSignature{
     private BigInteger sigMag;
     private BigInteger d, n;
 
-
-
     DigitalSignature(){
         try {
             MessageDigest MD = MessageDigest.getInstance("MD5");
             try {
 
-                FileReader fileReader = new FileReader("test.txt");
+                FileReader fileReader = new FileReader("/Users/dannypadilla/Workspace/Java/intelliJ/out/production/intelliJ/rsa/test.txt");
                 BufferedReader br = new BufferedReader(fileReader);
                 String [] strings = new String[5];
 
@@ -31,7 +29,6 @@ public class DigitalSignature{
                 }
 
                 //array of messageDigests and set them all to MD5
-
                 MessageDigest md = MessageDigest.getInstance("MD5");
 
                 //byte of strings
@@ -54,15 +51,17 @@ public class DigitalSignature{
         }
     }
 
-    public void setSignMag(byte[]byteArray){
+    public void setSignMag(byte[] byteArray) {
         BigInteger value = new BigInteger(1, byteArray);
         this.sigMag = value;
      }
 
+     // digest before signing
     public byte[] getBytes(){
         return this.digest;
     }
 
+    // signs the digest (fixed length of file for now ;) )
     public void initialSigning(){
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("privkey.rsa"));
@@ -70,10 +69,10 @@ public class DigitalSignature{
             this.d = (BigInteger)ois.readObject();
             this.n = (BigInteger)ois.readObject();
 
-            BigInteger answer = sigMag.modPow(d,n);
+            BigInteger answer = sigMag.modPow(d,n); // (signMag)^d mod n SIGNATURE
 
-            System.out.println("answer " + answer);
-            FileReader temp = new FileReader("test.txt");
+            System.out.println("Signature: " + answer); // signature
+            FileReader temp = new FileReader("/Users/dannypadilla/Workspace/Java/intelliJ/out/production/intelliJ/rsa/test.txt");
             BufferedReader br = new BufferedReader(temp);
 
             FileOutputStream fos = new FileOutputStream("test.txt.signed");
@@ -91,7 +90,9 @@ public class DigitalSignature{
 
             //pw.close();
 
+            // prints text from file
             ObjectInputStream iis = new ObjectInputStream(new FileInputStream("test.txt.signed"));
+            System.out.print("Original message");
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
