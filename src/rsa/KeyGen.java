@@ -37,12 +37,19 @@ public class KeyGen {
         this.q = q;
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
+<<<<<<< HEAD:src/rsa/KeyGen.java
         // random prime initialize goes here
         this.randomPrime = randNum(this.phi);
         this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
 
         //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
         //this.publicKey.put("d", this.inverse);
+=======
+        this.randomPrime = this.randNum(this.phi); // random prime initialize goes here
+        this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
+        this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
+        this.publicKey.put("d", this.inverse);
+>>>>>>> 8eb24336b16832dd162900c726b338efba9e231f:KeyGen.java
         this.privateKey = this.n; // set privateKey = n
     }
 
@@ -83,16 +90,12 @@ public class KeyGen {
         }
     }
 
-    // returns totient of two primes otherwise returns -2 meaning one of the nums aren't relatively prime
+    // returns totient of TWO primes otherwise returns -2 meaning one of the nums aren't relatively prime
     public BigInteger totient(BigInteger totientP, BigInteger totientQ) {
-        if(p.isProbablePrime(100) && q.isProbablePrime(100) ) {
-            return totientP.multiply(totientQ);
-        } else {
-            return new BigInteger("-2"); // need to do prime factorization
-        }
-
+        return totientP.multiply(totientQ);
     }
 
+<<<<<<< HEAD:src/rsa/KeyGen.java
     public BigInteger phi() {
         BigInteger holder;
         BigInteger temp = this.p.subtract(BigInteger.ONE);
@@ -168,6 +171,29 @@ you MUST output and input these keys to and from the files using a Java ObjectOu
 }
 
  /*
+=======
+    public BigInteger getPhi() {
+        return this.phi;
+    }
+
+    // picks a random prime number e between 1 < e < phi(p) such that gcd(e, phi(n) ) = 1
+    public BigInteger randNum(BigInteger num) {
+        BigInteger value;
+        int number = (int)( (Math.random() * 1024 - 2 + 1) + 2);
+        do {
+            value = BigInteger.probablePrime(number, this.rand);
+        } while ( (value.compareTo(num) != -1) && value.gcd(num).compareTo(BigInteger.ONE) != 0 && value.compareTo(BigInteger.ONE) != 1 && !value.isProbablePrime(100) );
+        return value;
+    }
+
+    public BigInteger getRand() {
+        return this.randomPrime;
+    }
+
+}
+
+/*
+>>>>>>> 8eb24336b16832dd162900c726b338efba9e231f:KeyGen.java
                                _
                             _ooOoo_
                            o8888888o
@@ -189,4 +215,4 @@ you MUST output and input these keys to and from the files using a Java ObjectOu
                             `=---='
 
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  */
+*/

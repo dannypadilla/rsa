@@ -22,10 +22,14 @@ public class Driver {
 
         KeyGen rsa = new KeyGen(p, q); // create KeyGen from primes p and q
 
-        System.out.println("phi(n) = " + rsa.phi() ); // prints out the phi function (totient) of n
+        System.out.println("phi(n) = " + rsa.getPhi() ); // prints out the phi function (totient) of n
 
+<<<<<<< HEAD:src/rsa/Driver.java
         System.out.println("random");
         System.out.println(rsa.randNum(rsa.phi()));
+=======
+        System.out.println(rsa.getRand() );
+>>>>>>> 8eb24336b16832dd162900c726b338efba9e231f:Driver.java
 
         KeyGen test = new KeyGen();
         //System.out.println("this.p " + test.getP());
