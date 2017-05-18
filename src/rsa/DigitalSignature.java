@@ -42,7 +42,6 @@ public class DigitalSignature{
                 //digest
                 this.digest = md.digest();
 
-
             }
             catch(Exception ex){
                 ex.printStackTrace();
@@ -54,18 +53,25 @@ public class DigitalSignature{
         }
     }
 
-    public BigInteger signMag(byte[]byteArray){
+    public void setSignMag(byte[]byteArray){
         BigInteger value = new BigInteger(1, byteArray);
         this.sigMag = value;
-        System.out.println(value);
-        return value;
-    }
+     }
 
     public byte[] getBytes(){
         return this.digest;
     }
 
-    //public
+    public void getPrivKeys(){
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("privkey.rsa"));
+
+            ois.close();
+        }
+        catch(Exception x){
+            x.printStackTrace();
+        }
+    }
 
 
 }

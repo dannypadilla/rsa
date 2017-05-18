@@ -152,7 +152,6 @@ public class KeyGen {
             oos.close();
 
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("privkey.rsa"));
-            //System.out.println("works" + (BigInteger) ois.readObject());
             System.out.println("inverse " + ois.readObject());
             System.out.println("n " + ois.readObject());
 
