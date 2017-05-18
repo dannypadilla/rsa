@@ -1,11 +1,13 @@
 package src.rsa;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.security.*;
 
 public class DigitalSignature{
 
-    private Byte [] byteArray;
+    private byte [] digest;
+    private BigInteger sigMag;
 
 
 
@@ -27,7 +29,6 @@ public class DigitalSignature{
                     temp = temp.concat(strings[i]);
                 }
 
-                System.out.println(temp);
                 //array of messageDigests and set them all to MD5
 
                 MessageDigest md = MessageDigest.getInstance("MD5");
@@ -39,7 +40,8 @@ public class DigitalSignature{
                 md.update(byteArray);
 
                 //digest
-                byte[] digest = md.digest();
+                this.digest = md.digest();
+
 
             }
             catch(Exception ex){
@@ -52,10 +54,18 @@ public class DigitalSignature{
         }
     }
 
+    public BigInteger signMag(byte[]byteArray){
+        BigInteger value = new BigInteger(1, byteArray);
+        this.sigMag = value;
+        System.out.println(value);
+        return value;
+    }
 
+    public byte[] getBytes(){
+        return this.digest;
+    }
 
-
-
+    //public
 
 
 }
