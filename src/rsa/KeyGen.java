@@ -1,5 +1,4 @@
-
-package src.rsa;
+package rsa.src.rsa;
 
 /*
 Todo List:
@@ -37,17 +36,11 @@ public class KeyGen {
         this.q = q;
         this.n = this.p.multiply(this.q);
         this.phi = this.totient(this.totient(this.p), this.totient(this.q) );
-        // random prime initialize goes here
-        this.randomPrime = randNum(this.phi);
-        this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
-
-        //this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
-        //this.publicKey.put("d", this.inverse);
         this.randomPrime = this.randNum(this.phi); // random prime initialize goes here
         this.inverse = this.randomPrime.modInverse(this.phi); // d = e^-1 mod phi(n)
-        this.publicKey.put("e", this.randomPrime); // set publickey = (e, d)
-        this.publicKey.put("d", this.inverse);
-        this.privateKey = this.n; // set privateKey = n
+        this.publicKey.put("e", this.randomPrime); // set publickey = (e, n)
+        this.publicKey.put("n", this.n);
+        this.privateKey = this.inverse; // set privateKey = n
     }
 
     public KeyGen(){
@@ -60,13 +53,14 @@ public class KeyGen {
         this.phi = this.totient(this.totient(this.p), this.totient(this.q));
         this.privateKey = this.n;
     }
+
     public void getAll(){
-        System.out.println("p " + this.p);
-        System.out.println("q " + this.q);
-        System.out.println("n " + this.n);
-        System.out.println("phi " + this.phi);
-        System.out.println("random prime " + this.randomPrime);
-        System.out.println("inverse " + this.inverse);
+        System.out.println("p: " + this.p);
+        System.out.println("q: " + this.q);
+        System.out.println("n: " + this.n);
+        System.out.println("phi: " + this.phi);
+        System.out.println("public key: " + this.randomPrime);
+        System.out.println("private key: " + this.inverse);
 
 
     }

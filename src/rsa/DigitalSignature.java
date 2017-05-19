@@ -1,4 +1,4 @@
-package src.rsa;
+package rsa.src.rsa;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -10,14 +10,12 @@ public class DigitalSignature{
     private BigInteger sigMag;
     private BigInteger d, n;
 
-
-
-    DigitalSignature(){
+    DigitalSignature() {
         try {
             MessageDigest MD = MessageDigest.getInstance("MD5");
             try {
 
-                FileReader fileReader = new FileReader("test.txt");
+                FileReader fileReader = new FileReader("/Users/dannypadilla/Workspace/Java/intelliJ/out/production/intelliJ/rsa/out/production/rsa/test.txt");
                 BufferedReader br = new BufferedReader(fileReader);
                 String [] strings = new String[5];
 
@@ -54,7 +52,7 @@ public class DigitalSignature{
         }
     }
 
-    public void setSignMag(byte[]byteArray){
+    public void setSignMag(byte[]byteArray) {
         BigInteger value = new BigInteger(1, byteArray);
         this.sigMag = value;
      }
@@ -72,8 +70,8 @@ public class DigitalSignature{
 
             BigInteger answer = sigMag.modPow(d,n);
 
-            System.out.println("answer " + answer);
-            FileReader temp = new FileReader("test.txt");
+            System.out.println("\nSignature: " + answer);
+            FileReader temp = new FileReader("/Users/dannypadilla/Workspace/Java/intelliJ/out/production/intelliJ/rsa/out/production/rsa/test.txt");
             BufferedReader br = new BufferedReader(temp);
 
             FileOutputStream fos = new FileOutputStream("test.txt.signed");
@@ -92,12 +90,15 @@ public class DigitalSignature{
             //pw.close();
 
             ObjectInputStream iis = new ObjectInputStream(new FileInputStream("test.txt.signed"));
+            System.out.println("\nDecrypt: ");
+            System.out.println();
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
             System.out.println(iis.readObject());
+
             iis.close();
         }
         catch(Exception x){
@@ -114,7 +115,9 @@ public class DigitalSignature{
             ObjectInputStream encrypt = new ObjectInputStream(new FileInputStream("pubkey.rsa"));
             BigInteger ee = (BigInteger)encrypt.readObject();
             BigInteger nn = (BigInteger)encrypt.readObject();
+
             BigInteger answer = value.modPow(ee,nn);
+            System.out.println("\nDigest: " + answer);
             byte[] temp = answer.toByteArray();
 
             String holder = "";
@@ -128,13 +131,13 @@ public class DigitalSignature{
 
             byte[] digest = md.digest();
 
-            
-
+            System.out.println("\nSignature Test: ");
+            // verify
             if(MessageDigest.isEqual(digest,temp)){
-                System.out.println("equal");
+                System.out.println("\nequal");
             }
             else{
-                System.out.println("not equal");
+                System.out.println("\nnot equal");
             }
 
 
